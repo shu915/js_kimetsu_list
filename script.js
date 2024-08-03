@@ -3,6 +3,7 @@ const list = document.getElementById('character-list');
 const loadingSpinner = document.getElementById('loading-spinner');
 
 const fetchCharacter = url => {
+  list.innerHTML = "";
   loadingSpinner.style.display = 'block';
 
   fetch(url)
@@ -39,29 +40,12 @@ const fetchCharacter = url => {
 
 fetchCharacter(allCharacterUrl);
 
-const kisatsutaiButton = document.getElementById('kisatsutai');
-kisatsutaiButton.addEventListener('click', function () {
-  kimetutaiUrl = "https://ihatov08.github.io/kimetsu_api/api/kisatsutai.json";
-  list.innerHTML = "";
-  fetchCharacter(kimetutaiUrl);
-});
 
-const hashiraButton = document.getElementById('hashira');
-hashiraButton.addEventListener('click', function () {
-  hashiraUrl = "https://ihatov08.github.io/kimetsu_api/api/hashira.json";
-  list.innerHTML = "";
-  fetchCharacter(hashiraUrl);
-});
-
-const oniButton = document.getElementById('oni');
-oniButton.addEventListener('click', function () {
-  oniUrl = "https://ihatov08.github.io/kimetsu_api/api/oni.json";
-  list.innerHTML = "";
-  fetchCharacter(oniUrl);
-});
-
-const allButton = document.getElementById('all');
-allButton.addEventListener('click', function () {
-  list.innerHTML = "";
-  fetchCharacter(allCharacterUrl);
-});
+buttons = document.querySelectorAll('.button');
+buttons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    url = `https://ihatov08.github.io/kimetsu_api/api/${button.value}.json`;
+    fetchCharacter(url);
+  })
+}
+);
